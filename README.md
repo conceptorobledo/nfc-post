@@ -7,6 +7,7 @@ Funciona como lector de tags, tras la interacción con el tag, se comunica en ti
 
 * [Pendientes del proyecto](#pendientes-del-proyecto)
   * [Completar Git](#completar-git)
+  * [Ordenar arquitectura de componentes](#ordenar-arquitectura-de-componentes)  
   * [Queue Firebase offline](#queue-firebase-offline)
   * [Desarrollar autentificación completa](#desarrollar-autentificacion-completo)
   * [Desarrollo de observaciones](#desarrollo-de-observaciones)
