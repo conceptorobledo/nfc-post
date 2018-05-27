@@ -22,6 +22,8 @@ Esto es para tener lo antes posible el proyecto respaldado, pero la intención e
 Se debe subir build de Android.
 Para importar proyecto se debe reconstruir el build de android, implementando lo necesario para el nfc manager y firebase.
 
+### Ordenar arquitectura de componentes
+
 ### Queue Firebase offline
 
 Desarrollar funcionalidad para que en caso de no haber conexión a internet cuando se deba producir el envio del tag, dejarlo pendiente hasta tener conexión.
