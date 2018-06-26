@@ -11,6 +11,7 @@ class NFCReaderScreen extends Component {
     }
     
     componentDidMount() {
+
     }
 
 

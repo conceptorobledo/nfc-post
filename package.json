@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "flow-bin": "^0.67.1",
     "jest-react-native": "^18.0.0",
     "react-test-renderer": "16.2.0"
   },
@@ -11,7 +12,8 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "node node_modules/jest/bin/jest.js"
+    "test": "node node_modules/jest/bin/jest.js",
+    "flow": "flow"
   },
   "jest": {
     "preset": "react-native"
