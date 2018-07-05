@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import {  View, StyleSheet } from 'react-native';
 
 import NFCComponent from '../../components/NFCComponent/NFCComponent';
-import NavigationButton from '../../components/NavigationButton/NavigationButton';
-import SignOutButton from '../../components/ConfigurationComponent/SignOutButton';
+import NavContainer from '../../components/Navigation/NavContainer'
+import HistoryList from '../../components/HistoryList/HistoryList'
+import InternetStatusBar from '../../components/InternetStatusBar/InternetStatusBar';
 
 class NFCReaderScreen extends Component {
-    static navigationOptions = {
-        header: null
-    }
-    
-    componentDidMount() {
-
-    }
-
+    static navigationOptions = ({navigation}) => ({
+        headerRight: <NavContainer onPress={()=>navigation.navigate("Settings")}/>
+    })
 
     render() {
 
         return (
             <View style={styles.container}>
                 {/* <NavigationButton title="Observaciones" navigate={() => this.props.navigation.navigate('Observations')} /> */}
+                <InternetStatusBar/>
                 <NFCComponent />
-                <SignOutButton/>
+                <HistoryList/>
             </View>
         );
     }

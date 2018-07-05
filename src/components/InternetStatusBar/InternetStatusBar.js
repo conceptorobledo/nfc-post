@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, NetInfo } from 'react-native';
 
-class NetInfoComponent extends Component {
+class InternetStatusBar extends Component {
     state = {
         isDeviceOnline: false
     }
@@ -46,12 +46,12 @@ class NetInfoComponent extends Component {
 
 const styles = StyleSheet.create({
     netInfoSnippet: {
-        color: 'red',
-        padding: 12,
-        borderRadius: 10,
-        marginRight: 25,
-        marginTop: 5
+        textAlign: 'center',
+        fontSize:18,
+        backgroundColor: 'red',
+        color: '#FFF',
+        padding: 14,
     }
 });
 
-export default NetInfoComponent;
+export default InternetStatusBar;

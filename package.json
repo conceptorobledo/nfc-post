@@ -24,6 +24,7 @@
     "react-native": "0.55.0",
     "react-native-firebase": "^4.0.6",
     "react-native-nfc-manager": "^0.4.2",
+    "react-native-svg": "^6.3.1",
     "react-navigation": "^2.0.0"
   }
 }

@@ -1,7 +1,7 @@
 // Formik x React Native example
 import React, { Component } from 'react';
 import firebase from 'react-native-firebase';
-import { Button, Text, TextInput, View, StyleSheet } from 'react-native';
+import { Button, Alert, TextInput, View, StyleSheet } from 'react-native';
 import { withFormik } from 'formik';
 
 const enhancer = withFormik({
@@ -20,8 +20,7 @@ const loginForm = props => {
       })
       .catch((err) => {
         const { code, message } = err;
-        console.log(err);
-        console.log('to props');
+        Alert.alert('Error',err.message);
       });
   }
   return (

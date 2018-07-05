@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, NetInfo, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, Image, ToastAndroid, Alert } from 'react-native';
 import NfcManager, { NdefParser } from 'react-native-nfc-manager'
 import firebase from 'react-native-firebase';
-import timestampconverter from '../../scripts/timestampconverter.js';
-import NetInfoComponent from './NetInfoComponent';
+import StatusBox from './StatusBox';
 
 //Componente lector de NFC
 //Se conecta a firebase para POST de tag leido.
@@ -13,11 +12,8 @@ import NetInfoComponent from './NetInfoComponent';
 
 class NFCComponent extends Component {
   state = {
-    supported: true
-  }
-
-  componentDidMount() {
-
+    supported: true,
+    reading: 'wait'
   }
 
   componentWillUnmount() {
@@ -31,28 +27,27 @@ class NFCComponent extends Component {
     const patrolsRef = database.ref('patrols');
     const homesRef = database.ref('homes');
     const dailyinfoRef = database.ref('dailyinfo');
-
-    console.log(timestamp);
-    const patrolData = { timestamp: timestamp, homeId: homeId, status: "actividad"};
+    const patrolData = { timestamp: timestamp, homeId: homeId, status: "actividad" };
     const pushNewPatrol = patrolsRef.push();
-    pushNewPatrol.set(patrolData);
-    homesRef.child(homeId + '/patrols').push().set(pushNewPatrol.key);
-    
-
-    //TODO Pasarlo a script externo
-   /*  const date = (t) => {
-      //t es de epoch y hay que pasarlo a unix agregandole milisegundos
-      const toDate = new Date(t * 1000);
-      const year = toDate.getFullYear();
-      //Si el minuto tiene 1 digito, agregarle 0 en frente
-      const day = toDate.getUTCDate();
-      // getMonth, 0 = Enero, 1 = Febrero ... etc
-      const month = toDate.getMonth();
-      const dateformated = year + month + day;
-
-      return dateformated;
-    };
- */
+    homesRef.once('value', snapshot => {
+      //TODO
+      //Comparar keys con la keys a ingresar para revisar si existe
+      const allHomes = Object.keys(snapshot.val());
+      //Crea un arreglo con todas las key de hogares.
+      const matchHome = allHomes.find((home) => {
+        return home == homeId;
+      });
+      console.log(matchHome);
+      if(typeof matchHome !== 'undefined'){
+        pushNewPatrol.set(patrolData);
+        homesRef.child(homeId + '/patrols').push().set(pushNewPatrol.key);
+        return this.setState({reading:'ok'});
+      }
+      else{
+        Alert.alert('El NFC' + homeId + ' no esta identificado.')
+        return this.setState({reading:'error'});
+      }
+    });
   }
 
   render() {
@@ -62,10 +57,9 @@ class NFCComponent extends Component {
 
     NfcManager.registerTagEvent(tag => {
       if (tag.ndefMessage == undefined) {
-        ToastAndroid.show('No se ha podido leer. Porfavor repita la operación para detectar el chip NFC.', ToastAndroid.LONG);
-        return;
+        Alert.alert('No se ha podido leer el chip. Repita la operación para detectar el chip NFC.');
+        return this.setState({reading:'error'});
       };
-      //console.log('Tag Discovered', tag.ndefMessage[0]);      
       //TimeStamp 
       const currentTimestamp = new Date().getTime();
 
@@ -79,22 +73,13 @@ class NFCComponent extends Component {
 
 
     return (
-      <View style={styles.container}>
-        <View style={styles.center}>
-          <Image
-            source={require('../../assets/waves.png')}
-            style={{ width: 200, height: 189 }}
-          />
-          <Text style={styles.text}>NFC reader</Text>
-        </View>
-      </View>
+      <StatusBox reading={this.state.reading}/>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffa500',
     flex: 1
   },
   center: {
