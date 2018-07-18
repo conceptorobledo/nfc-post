@@ -52,6 +52,8 @@ class NFCComponent extends Component {
 
   render() {
 
+    //TODO
+    //Almacenar localmente en asyncstorage cuando n o hay internet y volver a enviar cuando hatya internet
 
     let { supported, tag } = this.state;
 
