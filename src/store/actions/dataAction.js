@@ -1,6 +1,6 @@
 import { FETCH_PATROLS } from './types';
 
-import { patrolsRef, homesRef } from '../../../firebase';
+import { patrolsRef, homesRef } from '../../config/firebase';
 
 export const fetchPatrols = () => async (dispatch) => {
     patrolsRef.limitToLast(5).on('child_added', snapshot => {
