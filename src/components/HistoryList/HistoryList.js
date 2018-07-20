@@ -18,13 +18,9 @@ class componentName extends Component {
         const userUid = firebase.auth().currentUser.uid;
         patrolsRef.limitToLast(5).on('child_added', (snapshot) => {
             const patrolInfo = snapshot.val();
-            console.log(patrolInfo);
             patrolInfo.key = snapshot.key;
-            console.log(patrolInfo.homeId);
             homesRef.child(patrolInfo.homeId).once('value', snap => {
-                console.log('child query');
                 patrolInfo.address = snap.val().address;
-                console.log(patrolInfo.address);
                 this.setState((prevState) => {
                     return {
                         patrols: [...prevState.patrols, patrolInfo]

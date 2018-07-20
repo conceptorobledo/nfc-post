@@ -1,4 +1,4 @@
-import { FETCH_PATROLS, FETCH_HOME_PATROLS } from './types';
+import { FETCH_PATROLS } from './types';
 
 import { patrolsRef, homesRef } from '../../../firebase';
 
