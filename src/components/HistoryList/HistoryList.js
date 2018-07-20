@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
 
 import HistoryListItem from './HistoryListItem';
+import { fetchPatrols } from '../../store/actions/dataAction';
 
 class componentName extends Component {
 
@@ -55,7 +57,7 @@ class componentName extends Component {
     }
 }
 
-export default componentName;
+export default connect(null,{ fetchPatrols })(componentName);
 
 const styles = StyleSheet.create({
     container: {
