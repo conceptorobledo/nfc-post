@@ -5,15 +5,15 @@ Funciona como lector de tags, tras la interacción con el tag, se comunica en ti
 
 ## Tabla de contenidos
 
-* [Pendientes del proyecto](#pendientes-del-proyecto)
-  * [Completar Git](#completar-git)
-  * [Ordenar arquitectura de componentes](#ordenar-arquitectura-de-componentes)  
-  * [Queue Firebase offline](#queue-firebase-offline)
-  * [Desarrollar autentificación completa](#desarrollar-autentificacion-completo)
-  * [Desarrollo de observaciones](#desarrollo-de-observaciones)
-  * [Desarrollo IOs](#desarrollo-IOs)
-* [Bugs](#bugs)
-  * [Lectura de tag vacío](#lectura-de-tag-vacio)
+- [App React Native + NFC + Firebase w/Auth](#app-react-native--nfc--firebase-wauth)
+  - [Tabla de contenidos](#tabla-de-contenidos)
+  - [Pendientes del proyecto](#pendientes-del-proyecto)
+    - [Completar Git](#completar-git)
+    - [Ordenar arquitectura de componentes](#ordenar-arquitectura-de-componentes)
+    - [Persistencia offline](#persistencia-offline)
+    - [Desarrollar observaciones](#desarrollar-observaciones)
+    - [Desarrollo IOs](#desarrollo-ios)
+  - [Bugs](#bugs)
 
 ## Pendientes del proyecto
 
@@ -25,13 +25,9 @@ Para importar proyecto se debe reconstruir el build de android, implementando lo
 
 ### Ordenar arquitectura de componentes
 
-### Queue Firebase offline
+### Persistencia offline
 
-Desarrollar funcionalidad para que en caso de no haber conexión a internet cuando se deba producir el envio del tag, dejarlo pendiente hasta tener conexión.
-
-### Desarrollar autentificación completa
-
-Crear flujo para login y logout.
+Desarrollar persistencia de datos cuando no hay conexión. Se almacenan en Redux Persist de manera local y se envian al retorno de conexión, posteriormente al envio se limpian.
 
 ### Desarrollar observaciones
 
@@ -42,7 +38,3 @@ Incluir capacidad de junto al leer tag, enviar observaciones asociadas a la lect
 Por ahora el proyecto no requiere desarrollo IOs, pero se debe contemplar para futuro.
 
 ## Bugs
-
-### Lectura de tag vacío
-
-Hay ocasiones que el lector lee como tag vacío. Temporalmente al leerse el tag como vacío, aplicación solicita volver a leer el tag.
