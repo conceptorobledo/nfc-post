@@ -1,8 +1,7 @@
 import { FETCH_PATROLS, FETCH_HOME_PATROLS } from '../actions/types';
 
 const initialState = {
-    patrols: [],
-    homePatrols: []
+    patrols: []
 }
 
 export default function (state = initialState, action) {
@@ -13,7 +12,7 @@ export default function (state = initialState, action) {
                 return b.timestamp - a.timestamp
             });
             return {
-                patrols: nextState.slice(0, 10)
+                patrols: nextState.slice(0, 5)
             };
         }
         default:
