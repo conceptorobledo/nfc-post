@@ -1,7 +1,8 @@
-import { FETCH_PATROLS, FETCH_HOME_PATROLS } from '../actions/types';
+import { FETCH_PATROLS, POST_TO_PATROLS } from '../actions/types';
 
 const initialState = {
-    patrols: []
+    patrols: [],
+    response: null
 }
 
 export default function (state = initialState, action) {
@@ -12,8 +13,12 @@ export default function (state = initialState, action) {
                 return b.timestamp - a.timestamp
             });
             return {
-                patrols: nextState.slice(0, 5)
+                ...state, patrols: nextState.slice(0, 5)
             };
+        }
+        case POST_TO_PATROLS: {
+            console.log(action);
+            return {...state, response: action.response }
         }
         default:
             return state;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
 
@@ -13,7 +13,6 @@ class componentName extends Component {
     }
 
     componentDidUpdate() {
-      
     }
 
     render() {
@@ -31,7 +30,9 @@ class componentName extends Component {
 }
 
 const mapStateToProps = state => {
-    return{patrols: state.patrols.patrols}
+    return{
+        patrols: state.patrols.patrols
+    }
 }
 
 export default connect(mapStateToProps,{ fetchPatrols })(componentName);

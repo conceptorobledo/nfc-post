@@ -8,7 +8,6 @@ class StatusBox extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('Didupdate')
         if(prevProps.reading === this.props.reading){
             return;
         }

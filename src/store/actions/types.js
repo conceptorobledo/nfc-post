@@ -1,2 +1,2 @@
 export const FETCH_PATROLS = 'FETCH_PATROLS';
-
+export const POST_TO_PATROLS = 'POST_TO_PATROLS';

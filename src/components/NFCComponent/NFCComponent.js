@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, ToastAndroid, Alert } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import NfcManager, { NdefParser } from 'react-native-nfc-manager'
+import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
+import { postToPatrols } from '../../store/actions/dataAction';
 import StatusBox from './StatusBox';
 
 //Componente lector de NFC
@@ -68,7 +70,8 @@ class NFCComponent extends Component {
       //Utilizar URI por compatibilidad del Parser      
       const uri = NdefParser.parseUri(tag.ndefMessage[0]).uri;
 
-      this.firebaseHandler(uri, currentTimestamp);
+      //this.firebaseHandler(uri, currentTimestamp);
+      this.props.postToPatrols(uri,currentTimestamp);
     }, 'Hold your device over the tag', true);
 
     //const nfcsupported = <Text>{`Is NFC supported ? ${supported}`}</Text>;
@@ -95,6 +98,10 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
+const mapStateToProps = state => {
+  return{
+    response: state.patrols.response
+  }
+}
 
-
-export default NFCComponent;
+export default connect(mapStateToProps,{ postToPatrols })(NFCComponent);

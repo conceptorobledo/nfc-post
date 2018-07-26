@@ -10,12 +10,10 @@ class InternetStatusBar extends Component {
 
         NetInfo.isConnected.fetch().then(isConnected => {
             isConnected ? this.setState({ isDeviceOnline: true }) : this.setState({ isDeviceOnline: false });
-            console.log(this.state)
         });
         handleFirstConnectivityChange = isConnected => {
             console.log('function called')
             isConnected ? this.setState({ isDeviceOnline: true }) : this.setState({ isDeviceOnline: false });
-            console.log(this.state)
 
         }
         NetInfo.isConnected.addEventListener(
