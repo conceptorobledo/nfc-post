@@ -39,15 +39,14 @@ class NFCComponent extends Component {
       const matchHome = allHomes.find((home) => {
         return home == homeId;
       });
-      console.log(matchHome);
-      if(typeof matchHome !== 'undefined'){
+      if (typeof matchHome !== 'undefined') {
         pushNewPatrol.set(patrolData);
         homesRef.child(homeId + '/patrols').push().set(pushNewPatrol.key);
-        return this.setState({reading:'ok'});
+        return this.setState({ reading: 'ok' });
       }
-      else{
+      else {
         Alert.alert('El NFC' + homeId + ' no esta identificado.')
-        return this.setState({reading:'error'});
+        return this.setState({ reading: 'error' });
       }
     });
   }
@@ -62,23 +61,24 @@ class NFCComponent extends Component {
     NfcManager.registerTagEvent(tag => {
       if (tag.ndefMessage == undefined) {
         Alert.alert('No se ha podido leer el chip. Repita la operación para detectar el chip NFC.');
-        return this.setState({reading:'error'});
+        return this.setState({ reading: 'error' });
       };
       //TimeStamp 
       const currentTimestamp = new Date().getTime();
-
       //Utilizar URI por compatibilidad del Parser      
+      //Se utiliza formato uri en el NFC en posición 0
       const uri = NdefParser.parseUri(tag.ndefMessage[0]).uri;
-
       //this.firebaseHandler(uri, currentTimestamp);
-      this.props.postToPatrols(uri,currentTimestamp);
+      this.props.postToPatrols(uri, currentTimestamp);
     }, 'Hold your device over the tag', true);
-
+    if(!this.props.response){
+      
+    }
     //const nfcsupported = <Text>{`Is NFC supported ? ${supported}`}</Text>;
 
 
     return (
-      <StatusBox reading={this.state.reading}/>
+      <StatusBox reading={this.state.reading} />
     );
   }
 }
@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
   }
 });
 const mapStateToProps = state => {
-  return{
+  return {
     response: state.patrols.response
   }
 }
 
-export default connect(mapStateToProps,{ postToPatrols })(NFCComponent);
+export default connect(mapStateToProps, { postToPatrols })(NFCComponent);
