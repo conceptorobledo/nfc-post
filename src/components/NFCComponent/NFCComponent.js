@@ -23,32 +23,15 @@ class NFCComponent extends Component {
       this._stateChangedSubscription.remove();
     }
   }
-
-  firebaseHandler = (homeId, timestamp) => {
-    const database = firebase.database();
-    const patrolsRef = database.ref('patrols');
-    const homesRef = database.ref('homes');
-    const dailyinfoRef = database.ref('dailyinfo');
-    const patrolData = { timestamp: timestamp, homeId: homeId, status: "actividad" };
-    const pushNewPatrol = patrolsRef.push();
-    homesRef.once('value', snapshot => {
-      //TODO
-      //Comparar keys con la keys a ingresar para revisar si existe
-      const allHomes = Object.keys(snapshot.val());
-      //Crea un arreglo con todas las key de hogares.
-      const matchHome = allHomes.find((home) => {
-        return home == homeId;
-      });
-      if (typeof matchHome !== 'undefined') {
-        pushNewPatrol.set(patrolData);
-        homesRef.child(homeId + '/patrols').push().set(pushNewPatrol.key);
-        return this.setState({ reading: 'ok' });
+  componentDidUpdate() {
+    //TODO 
+    //Experimentando delays
+    (function () {
+      if (this.props.response === null) return;
+      if (!this.props.response.res) {
+        Alert.alert('Error de lectura', this.props.response.msg);
       }
-      else {
-        Alert.alert('El NFC' + homeId + ' no esta identificado.')
-        return this.setState({ reading: 'error' });
-      }
-    });
+    }());
   }
 
   render() {
@@ -60,7 +43,7 @@ class NFCComponent extends Component {
 
     NfcManager.registerTagEvent(tag => {
       if (tag.ndefMessage == undefined) {
-        Alert.alert('No se ha podido leer el chip. Repita la operación para detectar el chip NFC.');
+        Alert.alert('Error de lectura', 'No se ha podido leer el chip. Repita la operación para detectar el chip NFC.');
         return this.setState({ reading: 'error' });
       };
       //TimeStamp 
@@ -71,9 +54,7 @@ class NFCComponent extends Component {
       //this.firebaseHandler(uri, currentTimestamp);
       this.props.postToPatrols(uri, currentTimestamp);
     }, 'Hold your device over the tag', true);
-    if(!this.props.response){
-      
-    }
+
     //const nfcsupported = <Text>{`Is NFC supported ? ${supported}`}</Text>;
 
 

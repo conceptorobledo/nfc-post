@@ -17,7 +17,6 @@ export default function (state = initialState, action) {
             };
         }
         case POST_TO_PATROLS: {
-            console.log(action);
             return {...state, response: action.response }
         }
         default:

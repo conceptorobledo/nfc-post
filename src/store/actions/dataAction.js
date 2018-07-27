@@ -25,7 +25,6 @@ export const fetchPatrols = () => async (dispatch) => {
 }
 
 export const postToPatrols = (homeId, timestamp) => (dispatch) => {
-    console.log('action')
     const patrolData = { timestamp: timestamp, homeId: homeId, status: "actividad" };
     const pushNewPatrol = patrolsRef.push();
     homesRef.once('value', snapshot => {
@@ -36,6 +35,8 @@ export const postToPatrols = (homeId, timestamp) => (dispatch) => {
         const matchHome = allHomes.find((home) => {
             return home == homeId;
         });
+        //TODO
+        //HAY ALGO FUNCIONANDO LENTO
         if (typeof matchHome !== 'undefined') {
             pushNewPatrol.set(patrolData);
             homesRef.child(homeId + '/patrols').push().set(pushNewPatrol.key);
@@ -47,7 +48,7 @@ export const postToPatrols = (homeId, timestamp) => (dispatch) => {
         else {
             dispatch({
                 type: POST_TO_PATROLS,
-                response: { res: false, mgs: `El NFC ${homeId} no esta identificado.` }
+                response: { res: false, msg: `El NFC ${homeId} no esta identificado.` }
             })
         }
     });
