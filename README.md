@@ -4,7 +4,6 @@ App que utiliza el NFC de dispositivo Android.
 Funciona como lector de tags, tras la interacción con el tag, se comunica en tiempo real con Firebase enviando la lectura.
 
 ## Tabla de contenidos
-
 - [App React Native + NFC + Firebase w/Auth](#app-react-native--nfc--firebase-wauth)
   - [Tabla de contenidos](#tabla-de-contenidos)
   - [Pendientes del proyecto](#pendientes-del-proyecto)

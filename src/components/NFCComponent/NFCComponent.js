@@ -23,15 +23,20 @@ class NFCComponent extends Component {
       this._stateChangedSubscription.remove();
     }
   }
+
+  _readResponse = () => {
+    if (this.props.response === null) return;
+    if (!this.props.response.res) {
+      Alert.alert('Error de lectura', this.props.response.msg);
+    }
+    else if (this.props.response.res) {
+    }
+  }
+
   componentDidUpdate() {
     //TODO 
     //Experimentando delays
-    (function () {
-      if (this.props.response === null) return;
-      if (!this.props.response.res) {
-        Alert.alert('Error de lectura', this.props.response.msg);
-      }
-    }());
+    this._readResponse();
   }
 
   render() {
