@@ -28,15 +28,12 @@ export const postToPatrols = (homeId, timestamp) => (dispatch) => {
     const patrolData = { timestamp: timestamp, homeId: homeId, status: "actividad" };
     const pushNewPatrol = patrolsRef.push();
     homesRef.once('value', snapshot => {
-        //TODO
-        //Comparar keys con la keys a ingresar para revisar si existe
+        console.log(snapshot)
         const allHomes = Object.keys(snapshot.val());
         //Crea un arreglo con todas las key de hogares.
         const matchHome = allHomes.find((home) => {
             return home == homeId;
         });
-        //TODO
-        //HAY ALGO FUNCIONANDO LENTO
         if (typeof matchHome !== 'undefined') {
             pushNewPatrol.set(patrolData);
             homesRef.child(homeId + '/patrols').push().set(pushNewPatrol.key);

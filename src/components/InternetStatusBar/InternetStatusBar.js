@@ -7,7 +7,6 @@ class InternetStatusBar extends Component {
     }
 
     componentDidMount() {
-
         NetInfo.isConnected.fetch().then(isConnected => {
             isConnected ? this.setState({ isDeviceOnline: true }) : this.setState({ isDeviceOnline: false });
         });
