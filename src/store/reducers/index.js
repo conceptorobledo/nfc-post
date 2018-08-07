@@ -3,6 +3,5 @@ import dataReducer from './dataReducer';
 import netinfoReducer from './netinfoReducer';
 
 export default combineReducers({
-    patrols:dataReducer,
-    isConnected: netinfoReducer
+    patrols:dataReducer
 })

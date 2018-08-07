@@ -1,34 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, NetInfo } from 'react-native';
+import withNetInfo from '../../hocs/withNetInfo';
 
 class InternetStatusBar extends Component {
-    state = {
-        isDeviceOnline: false
-    }
-
-    componentDidMount() {
-        NetInfo.isConnected.fetch().then(isConnected => {
-            isConnected ? this.setState({ isDeviceOnline: true }) : this.setState({ isDeviceOnline: false });
-        });
-        handleFirstConnectivityChange = isConnected => {
-            console.log('function called')
-            isConnected ? this.setState({ isDeviceOnline: true }) : this.setState({ isDeviceOnline: false });
-
-        }
-        NetInfo.isConnected.addEventListener(
-            'connectionChange',
-            handleFirstConnectivityChange
-        );
-    }
-
-    componentWillUnmount() {
-        NetInfo.isConnected.removeEventListener('connectionChange', handleFirstConnectivityChange);
-    }
 
     render() {
-        const connected = this.state.isDeviceOnline;
-        const display = connected ? '' : 'No hay conexión a internet';
-        if (!connected) {
+        const { isConnected } = this.props
+        const display = isConnected ? '' : 'No hay conexión a internet';
+        if (!isConnected) {
             return (
                 <View>
                     <Text style={styles.netInfoSnippet}>{display}</Text>
@@ -44,11 +23,11 @@ class InternetStatusBar extends Component {
 const styles = StyleSheet.create({
     netInfoSnippet: {
         textAlign: 'center',
-        fontSize:18,
+        fontSize: 18,
         backgroundColor: 'red',
         color: '#FFF',
-        padding: 14,
+        padding: 14
     }
 });
 
-export default InternetStatusBar;
+export default withNetInfo(InternetStatusBar);

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, Alert } from 'react-native';
 import NfcManager, { NdefParser } from 'react-native-nfc-manager'
 import { connect } from 'react-redux';
-import firebase from 'react-native-firebase';
 import { postToPatrols } from '../../store/actions/dataAction';
 import StatusBox from './StatusBox';
+import withNetInfo from '../../hocs/withNetInfo';
 
 //Componente lector de NFC
 //Se conecta a firebase para POST de tag leido.
@@ -40,12 +40,9 @@ class NFCComponent extends Component {
   }
 
   render() {
-
     //TODO
     //Almacenar localmente en asyncstorage cuando n o hay internet y volver a enviar cuando hatya internet
-
     let { supported, tag } = this.state;
-
     NfcManager.registerTagEvent(tag => {
       if (tag.ndefMessage == undefined) {
         Alert.alert('Error de lectura', 'No se ha podido leer el chip. Repita la operación para detectar el chip NFC.');
@@ -60,9 +57,8 @@ class NFCComponent extends Component {
       this.props.postToPatrols(uri, currentTimestamp);
     }, 'Hold your device over the tag', true);
 
-    //const nfcsupported = <Text>{`Is NFC supported ? ${supported}`}</Text>;
-
-
+    const { isConnected } = this.props;
+    console.log(this.props);
     return (
       <StatusBox reading={this.state.reading} />
     );
@@ -86,9 +82,8 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = state => {
   return {
-    response: state.patrols.response,
-    isConnected: state.isConnected
+    response: state.patrols.response
   }
 }
 
-export default connect(mapStateToProps, { postToPatrols })(NFCComponent);
+export default withNetInfo(connect(mapStateToProps, { postToPatrols })(NFCComponent));

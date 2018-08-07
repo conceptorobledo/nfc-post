@@ -8,7 +8,7 @@ class StatusBox extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevProps.reading === this.props.reading){
+        if (prevProps.reading === this.props.reading) {
             return;
         }
         const readingStatus = this.props.reading;
@@ -26,6 +26,7 @@ class StatusBox extends Component {
     }
 
     render() {
+
         return (
             <View style={[styles.container, { backgroundColor: this.state.statusColor }]}>
                 <View style={styles.center}>
