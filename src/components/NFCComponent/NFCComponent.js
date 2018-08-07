@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = state => {
   return {
-    response: state.patrols.response
+    response: state.patrols.response,
+    isConnected: state.isConnected
   }
 }
 
